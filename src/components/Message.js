@@ -28,13 +28,14 @@ const Container = styled.div``
 
 const MessageElement = styled.p`
     width: fit-content;
-    padding: 15px;
+    padding: 8px;
     border-radius: 8px;
     margin: 5px;
     min-width: 80px;
     padding-bottom: 20px;
     position: relative;
     text-align: right;
+    font-size:15px;
     `
 
 const Sender = styled(MessageElement)`

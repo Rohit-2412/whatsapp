@@ -20,7 +20,8 @@ const Chat = ({ id, users }) => {
 
     const enterChat = () => {
         // go to messages page
-        router.push(`/chat/${id}`)
+        // router.push(`/chat/${id}`)
+        router.replace(`/chat/${id}`)
     }
 
     return (
