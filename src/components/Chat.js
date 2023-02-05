@@ -1,5 +1,4 @@
 import { auth, db } from "../../firebase"
-import { collection, query, where } from "firebase/firestore"
 
 import { Avatar } from "@mui/material"
 import getRecipientEmail from "@/utils/getRecipientEmail"
@@ -11,11 +10,7 @@ import { useRouter } from "next/router"
 const Chat = ({ id, users }) => {
     const [user] = useAuthState(auth)
     const recipientEmail = getRecipientEmail(users, user)
-    const [recipientSnapshot] = useCollection(
-        query(
-            collection(db, "users"),
-            where("email", "==", recipientEmail)
-        ))
+    const [recipientSnapshot] = useCollection(db.collection("users").where("email", "==", recipientEmail))
 
     const recipient = recipientSnapshot?.docs?.[0]?.data();
 
@@ -31,8 +26,7 @@ const Chat = ({ id, users }) => {
     return (
         <div
             onClick={enterChat}
-            className="flex flex-row items-center px-2 py-1 hover:bg-[#e9eaeb] cursor-pointer"
-            style={{ wordBreak: "break-word" }}
+            className="flex flex-row items-center px-2 py-1 hover:bg-[#e9eaeb] cursor-pointer relative"
         >
             {/* user avatar */}
             <div className="m-2 mr-4">
@@ -48,7 +42,7 @@ const Chat = ({ id, users }) => {
                 }
             </div>
             {/* email */}
-            <h1>{recipientEmail}</h1>
+            <h1 className="break-normal">{recipientEmail}</h1>
         </div>
     )
 }

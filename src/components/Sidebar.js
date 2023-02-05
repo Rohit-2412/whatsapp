@@ -2,12 +2,6 @@ import * as EmailValidator from "email-validator";
 
 import { Avatar, Button, IconButton } from "@mui/material";
 import { Chat, MoreVertOutlined, Search } from "@mui/icons-material";
-import {
-    addDoc,
-    collection,
-    query,
-    where,
-} from "firebase/firestore";
 import { auth, db } from "../../firebase";
 
 import ChatComponent from "./Chat";
@@ -17,10 +11,12 @@ import { useCollection } from "react-firebase-hooks/firestore";
 
 const Sidebar = () => {
     const [user] = useAuthState(auth);
-    const userChatRef = query(
-        collection(db, "chats"),
-        where("users", "array-contains", user.email)
+    const userChatRef = db.collection("chats").where(
+        "users",
+        "array-contains",
+        user.email
     );
+
     const [chatsSnapshot] = useCollection(userChatRef);
 
     const createChat = () => {
@@ -34,8 +30,9 @@ const Sidebar = () => {
         if (EmailValidator.validate(input)
             && !chatAlreadyExists(input)
             && input !== user.email) {
+            // we need to add the chat into the DB 'chats' collection if it doesn't already exist and is valid
 
-            addDoc(collection(db, "chats"), {
+            db.collection("chats").add({
                 users: [user.email, input],
             });
         }
@@ -45,15 +42,19 @@ const Sidebar = () => {
     const chatAlreadyExists = (recipientEmail) =>
         !!chatsSnapshot?.docs.find(
             (chat) =>
-                chat.data().users.find((user) => user === recipientEmail)
-                    ?.length > 0
+                chat.data().users.find(
+                    (user) => user === recipientEmail
+                )?.length > 0
         );
     ;
 
     return (
-        <div>
+        // container
+        <div
+            className=" flex-[0.45] border-r border-[#e5e5e5] min-w-[250px] max-w-[350px] overflow-y-scroll scrollbar-hide h-screen"
+        >
             {/* header */}
-            <header className="flex sticky top-0 bg-white z-1 justify-between items-center p-2 h-[80] border-b-2 border-gray-200">
+            <div className="flex sticky top-0 bg-white z-10 justify-between items-center p-2 h-[80] border-b-2 border-gray-200">
                 <IconButton>
                     <Avatar
                         src={user.photoURL}
@@ -72,7 +73,7 @@ const Sidebar = () => {
                         <MoreVertOutlined />
                     </IconButton>
                 </div>
-            </header>
+            </div>
 
             {/* search container */}
             <div className="flex items-center p-4 rounded-sm">
@@ -97,8 +98,6 @@ const Sidebar = () => {
                     <ChatComponent key={chat.id} id={chat.id} users={chat.data().users} />
                 ))}
             </div>
-
-
         </div>
     );
 };
