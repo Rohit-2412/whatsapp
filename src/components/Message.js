@@ -17,7 +17,6 @@ const Message = ({ user, message }) => {
                     {message.timestamp ? moment(message.timestamp).format('LT') : "..."}
                 </Time>
             </TypeOfMessage>
-
         </Container>
     )
 }
@@ -47,7 +46,7 @@ const Reciever = styled(MessageElement)`
     background-color: whitesmoke;
     `
 
-const Time = styled.p`
+const Time = styled.span`
     color: gray;
     padding: 10px;
     font-size: 9px;

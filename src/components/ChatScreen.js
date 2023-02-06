@@ -87,7 +87,7 @@ function ChatScreen({ chat, messages }) {
     return (
         <div className="h-screen bg-slate-100">
             {/* header */}
-            <div className="sticky top-0 h-[80] bg-white z-10 flex p-3  items-center border-b-2 border-[#eaebea]">
+            <div className="sticky top-0 bg-white z-10 flex p-3  items-center border-b-2 border-[#eaebea]">
                 {
                     recipient ? (
                         <Avatar
@@ -103,7 +103,7 @@ function ChatScreen({ chat, messages }) {
                 }
                 {/* header information */}
                 <div className="ml-[50] flex-1 items-center justify-center">
-                    <p className="font-bold text-base mb-[3]">
+                    <p className="font-bold text-lg mb-[3]">
                         {/* show only 20 characters */}
                         {
                             recipientEmail.split('@')[0].length > 20 ?
@@ -165,12 +165,11 @@ function ChatScreen({ chat, messages }) {
 
                 {/* mic icon */}
                 <IconButton>
-                    <button type="submit" hidden disabled={!input}
-                    >
-                        Send Message
-                    </button>
                     <Mic />
                 </IconButton>
+                <button type="submit" hidden disabled={!input}>
+                    Send Message
+                </button>
             </form>
         </div>
     );

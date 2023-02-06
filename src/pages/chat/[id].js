@@ -9,6 +9,7 @@ import { useAuthState } from "react-firebase-hooks/auth"
 const Chat = ({ chat, messages }) => {
     const { user } = useAuthState(auth)
 
+    console.log(chat, messages)
     return (
         <div
             className="flex h-screen"
@@ -31,7 +32,6 @@ const Chat = ({ chat, messages }) => {
 
 export default Chat
 
-// 2:20
 export async function getServerSideProps(context) {
     const ref = db.collection("chats").doc(context.query.id)
 

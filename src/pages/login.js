@@ -29,6 +29,7 @@ const Login = () => {
                     width={200}
                     className="mb-12"
                     height={200}
+                    priority={true}
                 />
                 <Button onClick={signIn} variant="outlined">
                     Sign in with Google

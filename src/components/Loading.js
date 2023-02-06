@@ -1,6 +1,7 @@
+import React, { useState } from 'react'
+
 import { Circle } from 'better-react-spinkit'
 import Image from 'next/image'
-import React from 'react'
 
 const Loading = () => {
     return (
@@ -12,6 +13,7 @@ const Loading = () => {
                     height={200}
                     width={200}
                     style={{ marginBottom: 20 }}
+                    priority={true}
                 />
                 <Circle color="#3CBC28" size={60} />
             </div>

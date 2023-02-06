@@ -54,11 +54,12 @@ const Sidebar = () => {
             className=" flex-[0.45] border-r border-[#e5e5e5] min-w-[250px] max-w-[350px] overflow-y-scroll scrollbar-hide h-screen"
         >
             {/* header */}
-            <div className="flex sticky top-0 bg-white z-10 justify-between items-center p-2 h-[80] border-b-2 border-gray-200">
-                <IconButton>
+            <div className="flex sticky top-0 bg-white z-10 justify-between items-center p-[6px] h-[80] border-b-2 border-gray-200">
+                <IconButton
+                    onClick={() => auth.signOut()}
+                >
                     <Avatar
                         src={user.photoURL}
-                        onClick={() => auth.signOut()}
                         className="cursor-pointer hover:opacity-80"
                     />
                 </IconButton>
